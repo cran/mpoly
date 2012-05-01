@@ -1,0 +1,23 @@
+\name{mpolyList}
+\alias{mpolyList}
+\title{Define a collection of multivariate polynomials.}
+\usage{
+  mpolyList(...)
+}
+\arguments{
+  \item{...}{a series of mpoly objects.}
+}
+\value{
+  An object of class mpolyList.
+}
+\description{
+  Combine a series of mpoly objects into a mpolyList.
+}
+\examples{
+( p1 <- mp('t^4 - x') )
+( p2 <- mp('t^3 - y') )
+( p3 <- mp('t^2 - z') )
+( ms <- mpolyList(p1, p2, p3) )
+is.mpolyList( ms )
+}
+

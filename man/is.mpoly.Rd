@@ -1,0 +1,16 @@
+\name{is.mpoly}
+\alias{is.mpoly}
+\title{Test whether an object is an mpoly object.}
+\usage{
+  is.mpoly(x)
+}
+\arguments{
+  \item{x}{object to be tested}
+}
+\value{
+  Vector of logicals.
+}
+\description{
+  Test whether an object is an mpoly object.
+}
+
