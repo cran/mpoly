@@ -1,0 +1,25 @@
+\name{insert}
+\alias{insert}
+\title{Insert an element into a vector.}
+\usage{
+  insert(elem, slot, v)
+}
+\arguments{
+  \item{elem}{element to insert}
+
+  \item{slot}{location of insert}
+
+  \item{v}{vector to insert into}
+}
+\value{
+  vector with element inserted
+}
+\description{
+  Insert an element into a vector.
+}
+\examples{
+insert(2, 1, 1)
+insert(2, 2, 1)
+insert('x', 5, letters)
+}
+
