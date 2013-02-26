@@ -1,3 +1,12 @@
+Version 0.0.2
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* as.mpoly method now defined for lm objects which makes an mpoly object out of a linear model.
+
+
+
 Version 0.0.1
 -------------------------------------------------------------------------
 

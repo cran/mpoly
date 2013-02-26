@@ -25,6 +25,7 @@
   by the print method, not the mpoly's themselves.
 }
 \examples{
+\dontrun{
 polys <- mp(c('t^4 - x', 't^3 - y', 't^2 - z'))
 grobner(polys)
 # result
@@ -54,5 +55,7 @@ grobner(polys, varorder = c('x', 'y'), order = 'grlex')
 
 # example from algebraic statistics, dinwoodie 1998
 #mp()
+
+}
 }
 
