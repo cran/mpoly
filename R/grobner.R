@@ -9,6 +9,7 @@
 #' @return An object of class mpolyList.
 #' @export
 #' @examples
+#' \dontrun{
 #' polys <- mp(c('t^4 - x', 't^3 - y', 't^2 - z'))
 #' grobner(polys)
 #' # result
@@ -39,7 +40,7 @@
 #' # example from algebraic statistics, dinwoodie 1998
 #' #mp()
 #'
-#'
+#' }
 grobner <- function(mpolyList, varorder = vars(mpolyList), order = 'lex'){
   
   stopifnot(is.mpolyList(mpolyList))
