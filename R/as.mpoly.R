@@ -6,7 +6,9 @@
 #' @return the object formated as a mpoly object.
 #' @author David Kahle \email{david.kahle@@gmail.com}
 #' @seealso \code{\link{mp}}
-#' @export
+#' @export as.mpoly
+#' @S3method as.mpoly default
+#' @S3method as.mpoly lm
 #' @examples
 #' \dontrun{
 #' library(plyr)
@@ -52,9 +54,13 @@ as.mpoly.lm <- function(x){
   coef_names <- names(coefs)
   coef_names[coef_names == '(Intercept)'] <- 1
   I_ndcs <- which(str_detect(coef_names, 'I([0-9a-zA-Z]*)'))
-  coef_names[I_ndcs] <- sapply(as.list(coef_names[I_ndcs]), function(s){
-    str_sub(s, 3, -2)
-  })
+  if(length(I_ndcs) > 0){
+    coef_names[I_ndcs] <- sapply(as.list(coef_names[I_ndcs]), 
+      function(s) {
+          str_sub(s, 3, -2)
+      }
+    )
+  }
   coef_names  <- str_replace_all(coef_names, ' \\* ', ' ')
   mp_str <- paste(coefs, coef_names, sep = ' ', collapse = ' + ')
   mp(mp_str)
