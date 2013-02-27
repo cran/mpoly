@@ -1,8 +1,8 @@
 Package: mpoly
 Type: Package
 Title: Symbolic computation and more with multivariate polynomials
-Version: 0.0.2
-Date: 2013-02-26
+Version: 0.0.3
+Date: 2013-02-27
 Author: David Kahle <david.kahle@gmail.com>
 Maintainer: David Kahle <david.kahle@gmail.com>
 Description: mpoly allows for the symbolic manipulation of multivariate
@@ -21,7 +21,7 @@ Collate: 'as.function.mpoly.R' 'as.function.mpolyList.R'
         'print.mpolyList.R' 'reorder.mpoly.R' 'terms.mpoly.R' 'vars.R'
         'help.R' 'permutations.R' 'tuples.R' 'partitions.R' 'burst.R'
         'as.mpoly.R'
-Packaged: 2013-02-26 17:51:13 UTC; david_kahle
+Packaged: 2013-02-27 16:11:02 UTC; david_kahle
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-02-26 22:16:09
+Date/Publication: 2013-02-27 17:14:49
