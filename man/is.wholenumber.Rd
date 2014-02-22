@@ -2,7 +2,7 @@
 \alias{is.wholenumber}
 \title{Test whether an object is a whole number.}
 \usage{
-  is.wholenumber(x, tol = .Machine$double.eps^0.5)
+is.wholenumber(x, tol = .Machine$double.eps^0.5)
 }
 \arguments{
   \item{x}{object to be tested}
@@ -11,10 +11,10 @@
   whole}
 }
 \value{
-  Vector of logicals.
+Vector of logicals.
 }
 \description{
-  Test whether an object is a whole number.
+Test whether an object is a whole number.
 }
 \examples{
 is.wholenumber(seq(-3,3,.5))

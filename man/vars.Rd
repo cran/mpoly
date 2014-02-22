@@ -2,16 +2,16 @@
 \alias{vars}
 \title{Determine the variables in a mpoly object.}
 \usage{
-  vars(mpoly)
+vars(mpoly)
 }
 \arguments{
   \item{mpoly}{an object of class mpoly}
 }
 \value{
-  A character vector of the variable names.
+A character vector of the variable names.
 }
 \description{
-  Determine the variables in a mpoly object.
+Determine the variables in a mpoly object.
 }
 \examples{
 list <- list(

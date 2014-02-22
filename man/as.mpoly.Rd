@@ -2,17 +2,17 @@
 \alias{as.mpoly}
 \title{Convert an object to an mpoly}
 \usage{
-  as.mpoly(x)
+as.mpoly(x)
 }
 \arguments{
   \item{x}{an object of class lm.}
 }
 \value{
-  the object formated as a mpoly object.
+the object formated as a mpoly object.
 }
 \description{
-  mpoly is the most basic function used to create objects
-  of class mpoly.
+mpoly is the most basic function used to create objects of
+class mpoly.
 }
 \examples{
 \dontrun{
@@ -50,9 +50,9 @@ mod <- lm(z ~ poly(x, y, degree = 2), data = df)
 }
 }
 \author{
-  David Kahle \email{david.kahle@gmail.com}
+David Kahle \email{david.kahle@gmail.com}
 }
 \seealso{
-  \code{\link{mp}}
+\code{\link{mp}}
 }
 

@@ -3,7 +3,7 @@
 \alias{mpolyExp}
 \title{Exponentiate multivariate polynomials.}
 \usage{
-  \method{^}{mpoly} (e1, e2)
+\method{^}{mpoly}(e1, e2)
 }
 \arguments{
   \item{e1}{an object of class mpoly}
@@ -11,10 +11,10 @@
   \item{e2}{a positive integer}
 }
 \value{
-  object of class mpoly
+object of class mpoly
 }
 \description{
-  Exponentiate multivariate polynomials.
+Exponentiate multivariate polynomials.
 }
 \examples{
 list <- list(

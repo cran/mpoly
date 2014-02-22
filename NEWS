@@ -1,3 +1,18 @@
+Version 0.0.4
+-------------------------------------------------------------------------
+
+CHANGES
+
+* Division symbols in mp now return an error.
+* mpoly now has a GPL-2 license.
+
+FIXES
+
+* Fixed a glitch in print.mpoly that made mp("-1 + y") print as "-1 1  +  y".
+* mpolyList now works on single elements, either a mpoly object (converting it to a mpolyList) or a call to mp.
+* mp now properly handles constants raised to powers.
+
+
 Version 0.0.3
 -------------------------------------------------------------------------
 

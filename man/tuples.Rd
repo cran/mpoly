@@ -2,7 +2,7 @@
 \alias{tuples}
 \title{Determine all n-tuples using the elements of a set.}
 \usage{
-  tuples(set, n = length(set), repeats = FALSE)
+tuples(set, n = length(set), repeats = FALSE)
 }
 \arguments{
   \item{set}{a set}
@@ -13,10 +13,10 @@
   result?}
 }
 \value{
-  a matrix whose rows are the n-tuples
+a matrix whose rows are the n-tuples
 }
 \description{
-  Determine all n-tuples using the elements of a set.
+Determine all n-tuples using the elements of a set.
 }
 \examples{
 tuples(1:2, 5)

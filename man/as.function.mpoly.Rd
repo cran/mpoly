@@ -2,8 +2,7 @@
 \alias{as.function.mpoly}
 \title{Change a multivariate polynomial into a function.}
 \usage{
-  \method{as.function}{mpoly}(x, varorder = vars(x), vector
-    = TRUE, ...)
+\method{as.function}{mpoly}(x, varorder = vars(x), vector = TRUE, ...)
 }
 \arguments{
   \item{x}{an object of class mpoly}
@@ -17,8 +16,8 @@
   \item{...}{any additional arguments}
 }
 \description{
-  Transforms an mpoly object into a function which can be
-  evaluated.
+Transforms an mpoly object into a function which can be
+evaluated.
 }
 \examples{
 mpoly <- mp('1 2 3 4')

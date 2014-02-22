@@ -2,8 +2,7 @@
 \alias{grobner}
 \title{Compute a grobner basis of a list of multivariate polynomials.}
 \usage{
-  grobner(mpolyList, varorder = vars(mpolyList),
-    order = "lex")
+grobner(mpolyList, varorder = vars(mpolyList), order = "lex")
 }
 \arguments{
   \item{mpolyList}{an object of class mpolyList}
@@ -14,15 +13,15 @@
   (e.g. lexicographic)}
 }
 \value{
-  An object of class mpolyList.
+An object of class mpolyList.
 }
 \description{
-  grobner computes a Groebner basis for a collection of
-  multivarite polynomials represented as an object of class
-  mpolyList. Note that the polynomials printed after
-  calculation are unlikely to be properly ordered; this is
-  because the order of the monomials displayed is governed
-  by the print method, not the mpoly's themselves.
+grobner computes a Groebner basis for a collection of
+multivarite polynomials represented as an object of class
+mpolyList. Note that the polynomials printed after
+calculation are unlikely to be properly ordered; this is
+because the order of the monomials displayed is governed by
+the print method, not the mpoly's themselves.
 }
 \examples{
 \dontrun{

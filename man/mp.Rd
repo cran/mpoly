@@ -2,7 +2,7 @@
 \alias{mp}
 \title{Define a multivariate polynomial.}
 \usage{
-  mp(string, varorder)
+mp(string, varorder)
 }
 \arguments{
   \item{string}{a character string containing a polynomial,
@@ -11,12 +11,12 @@
   \item{varorder}{(optional) order of variables in string}
 }
 \value{
-  An object of class mpoly.
+An object of class mpoly.
 }
 \description{
-  mp is a smart function which attempts to create a formal
-  mpoly object from a character string containing the usual
-  representation of a multivariate polynomial.
+mp is a smart function which attempts to create a formal
+mpoly object from a character string containing the usual
+representation of a multivariate polynomial.
 }
 \examples{
 ( m <- mp('x + y + x y') )
@@ -37,6 +37,11 @@ mp('x - x') # -> 0
 mp('x - 4 x') # -> -3 x
 mp('x y^2 - y^2 x') # -> 0
 
+mp('5^2') # -> 25
+mp('2^2 x + 5^2 + 3^2') # -> 4 x  +  34
+mp('1 1') # -> 1
+mp('1  3 5^2 + 2 3^4 x') # -> 75  + 162 x
+
 ( ms <- mp(c('x + y', '2 x')) )
 is.mpolyList(ms)
 
@@ -53,6 +58,7 @@ mp('2')
 mp('-5')
 mp('-4 x')
 mp('y + -1 x')
+mp('-1 + x')
 
 gradient( mp('x + 2 y + x^2 y + x y z') )
 
@@ -65,15 +71,15 @@ mp(strings)
 # possible specification syntax issues -
 mp('x + 4x') # note the 4x as opposed to 4 x
 mp('x - 4x') # same
-mp('x -1') # -> x  -  11 -11
+mp('x -1') # -> x  -  11
 
 # future -
 #mp('(x-2)^2')
 }
 \author{
-  David Kahle \email{david.kahle@gmail.com}
+David Kahle \email{david.kahle@gmail.com}
 }
 \seealso{
-  \code{\link{mpoly}}
+\code{\link{mpoly}}
 }
 

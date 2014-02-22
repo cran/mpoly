@@ -2,8 +2,7 @@
 \alias{print.mpoly}
 \title{Pretty printing of multivariate polynomials.}
 \usage{
-  \method{print}{mpoly}(x, stars = FALSE, varorder, order,
-    ...)
+\method{print}{mpoly}(x, stars = FALSE, varorder, order, ...)
 }
 \arguments{
   \item{x}{an object of class mpoly}
@@ -19,11 +18,11 @@
   \item{...}{additional parameters}
 }
 \value{
-  Invisible string of the printed object.
+Invisible string of the printed object.
 }
 \description{
-  This is the major function used to view multivariate
-  polynomials.
+This is the major function used to view multivariate
+polynomials.
 }
 \examples{
 ( list <- list(c(x = 5, coef = 2), c(y = 2, coef = -3), c(x = 1, y = 3, coef = 1)) )

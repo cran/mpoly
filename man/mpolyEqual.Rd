@@ -4,7 +4,7 @@
 \alias{mpolyEqual}
 \title{Determine whether two multivariate polynomials are equal.}
 \usage{
-  \method{==}{mpoly} (e1, e2)
+\method{==}{mpoly}(e1, e2)
 }
 \arguments{
   \item{e1}{an object of class mpoly}
@@ -12,10 +12,10 @@
   \item{e2}{an object of class mpoly}
 }
 \value{
-  A logical value.
+A logical value.
 }
 \description{
-  Determine whether two multivariate polynomials are equal.
+Determine whether two multivariate polynomials are equal.
 }
 \examples{
 p1 <- mp('x + y + 2 z')

@@ -2,7 +2,7 @@
 \alias{deriv.mpoly}
 \title{Compute partial derivatives of a multivariate polynomial.}
 \usage{
-  \method{deriv}{mpoly}(expr, var, ...)
+\method{deriv}{mpoly}(expr, var, ...)
 }
 \arguments{
   \item{expr}{an object of class mpoly}
@@ -12,11 +12,11 @@
   \item{...}{any additional arguments}
 }
 \value{
-  An object of class mpoly or mpolyList.
+An object of class mpoly or mpolyList.
 }
 \description{
-  This is a deriv method for mpoly objects.  It does not
-  call the deriv function (from package stats).
+This is a deriv method for mpoly objects.  It does not call
+the deriv function (from package stats).
 }
 \examples{
 m <- mp('x y + y z + z^2')

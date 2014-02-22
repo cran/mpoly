@@ -11,12 +11,29 @@
 #' ( p3 <- mp('t^2 - z') )
 #' ( ms <- mpolyList(p1, p2, p3) )
 #' is.mpolyList( ms )
+#'
+#' mpolyList(mp("x + 1"))
+#' p <- mp("x + 1")
+#' mpolyList(p)
+#' 
+#' ps <- mp(c("x + 1", "y + 2"))
+#' is.mpolyList(ps)
+#'
 mpolyList <- function(...){
-  arguments <- as.list(match.call()[-1])  
+	
+  arguments <- as.list(match.call()[-1])    
   out <- lapply(arguments, function(l) get(as.character(l)))
+
+  if(is.mpoly(out)) out <- list(out)
+  
+  for(k in which(sapply(arguments, is.language))){
+    out[[k]] <- eval(arguments[[k]])
+  }
+  
   if(!all(sapply(out, is.mpoly))){
   	stop('each argument must be of class mpoly.', call. = FALSE)
   }
+  
   class(out) <- 'mpolyList'
   out
 }

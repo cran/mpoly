@@ -3,7 +3,7 @@
 \alias{mpolyListSub}
 \title{Subtract vectors of multivariate polynomials element-wise.}
 \usage{
-  \method{-}{mpolyList} (e1, e2)
+\method{-}{mpolyList}(e1, e2)
 }
 \arguments{
   \item{e1}{an object of class mpolyList}
@@ -11,10 +11,10 @@
   \item{e2}{an object of class mpolyList}
 }
 \value{
-  An object of class mpolyList.
+An object of class mpolyList.
 }
 \description{
-  Compute the difference of two mpolyList objects.
+Compute the difference of two mpolyList objects.
 }
 \examples{
 ( ms1 <- mp( c('x + 1', 'x + 2') ) )

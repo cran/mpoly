@@ -2,8 +2,7 @@
 \alias{reorder.mpoly}
 \title{Reorder a multivariate polynomial.}
 \usage{
-  \method{reorder}{mpoly}(x, varorder = vars(x), order,
-    ...)
+\method{reorder}{mpoly}(x, varorder = vars(x), order, ...)
 }
 \arguments{
   \item{x}{an object of class mpoly}
@@ -15,12 +14,12 @@
   \item{...}{additional arguments}
 }
 \value{
-  An object of class mpoly.
+An object of class mpoly.
 }
 \description{
-  This function is used to set the intrinsic order of a
-  multivariate polynomial.  It is used for both the in-term
-  variables and the terms.
+This function is used to set the intrinsic order of a
+multivariate polynomial.  It is used for both the in-term
+variables and the terms.
 }
 \examples{
 list <- list(

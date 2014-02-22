@@ -2,7 +2,7 @@
 \alias{terms.mpoly}
 \title{Extract the terms of a multivariate polynomial.}
 \usage{
-  \method{terms}{mpoly}(x, ...)
+\method{terms}{mpoly}(x, ...)
 }
 \arguments{
   \item{x}{an object of class mpoly}
@@ -10,10 +10,10 @@
   \item{...}{additional parameters}
 }
 \value{
-  An object of class mpolyList.
+An object of class mpolyList.
 }
 \description{
-  Compute the terms of an mpoly object as a mpolyList.
+Compute the terms of an mpoly object as a mpolyList.
 }
 \examples{
 terms(mp('x^2 - y + x y z'))

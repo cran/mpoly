@@ -2,8 +2,7 @@
 \alias{as.function.mpolyList}
 \title{Change a vector of multivariate polynomials into a function.}
 \usage{
-  \method{as.function}{mpolyList}(x, varorder = vars(x),
-    vector = TRUE, ...)
+\method{as.function}{mpolyList}(x, varorder = vars(x), vector = TRUE, ...)
 }
 \arguments{
   \item{x}{an object of class mpolyList #}
@@ -17,8 +16,8 @@
   \item{...}{any additional arguments}
 }
 \description{
-  Transforms an mpolyList object into a function which can
-  be evaluated.
+Transforms an mpolyList object into a function which can be
+evaluated.
 }
 \examples{
 mpolyList <- mp(c('2 x + 1', 'x - z^2'))

@@ -26,6 +26,11 @@
 #' mp('x - x') # -> 0
 #' mp('x - 4 x') # -> -3 x
 #' mp('x y^2 - y^2 x') # -> 0
+#' 
+#' mp('5^2') # -> 25
+#' mp('2^2 x + 5^2 + 3^2') # -> 4 x  +  34
+#' mp('1 1') # -> 1
+#' mp('1  3 5^2 + 2 3^4 x') # -> 75  + 162 x
 #'
 #' ( ms <- mp(c('x + y', '2 x')) )
 #' is.mpolyList(ms)
@@ -43,6 +48,7 @@
 #' mp('-5')
 #' mp('-4 x')
 #' mp('y + -1 x')
+#' mp('-1 + x')
 #'
 #' gradient( mp('x + 2 y + x^2 y + x y z') ) 
 #'
@@ -55,12 +61,12 @@
 #' # possible specification syntax issues -
 #' mp('x + 4x') # note the 4x as opposed to 4 x
 #' mp('x - 4x') # same
-#' mp('x -1') # -> x  -  11 -11
+#' mp('x -1') # -> x  -  11
 #'
 #' # future -
 #' #mp('(x-2)^2')
 mp <- function(string, varorder){
-  
+
   stopifnot(is.character(string))
   
   # if string is a vector of polys, return mpolyList
@@ -83,12 +89,18 @@ mp <- function(string, varorder){
   
   # trim string
   string <- str_trim(string)
-  
-  # constants
-  if(!is.na(suppressWarnings(as.numeric(string)))){ # allows for mp('-5') or mp('5')
-    return(mpoly( list(c(coef = as.numeric(string))) ))
+
+  # constants - no variables, allows mp('-5') mp('5') mp('3^2') mp('2 1')
+  if(!str_detect(string, "[a-zA-Z]")){
+  	if(str_detect(string, "\\+")){
+  	  string <- str_trim(strsplit(string, "\\+")[[1]])
+  	}
+    string <- gsub('[ ]{2,}', ' ', string)
+    string <- gsub('[ ]{1}', '*', string)
+    string <- paste(string, collapse = "+")  	
+    return(mpoly( list(c(coef = eval(parse(text = string)))) ))
   }
-  
+ 
   # fix negatives
   if(substr(string, 1, 1) == '-'){ # starting with a negative coefficient
     string <- paste('0 + ', string, sep = '')
@@ -105,9 +117,14 @@ mp <- function(string, varorder){
     stop('parenthetical expressions not currently handled.')
   }
   
+  # division
+  if(str_detect(string, '/')){
+    stop('expressions with division are not currently handled (use decimals).')
+  }  
+  
   
   ## begin real work
-  
+   
   # separate terms
   string <- paste(' ', string, ' ', sep = '') # prep for lapply to come
   l <- as.list(strsplit(string, '\\+')[[1]])  
@@ -115,7 +132,6 @@ mp <- function(string, varorder){
     n <- nchar(s)
     substr(s, 2, n - 1)	
   })
-
   
   # burst terms
   elements <- lapply(terms, function(string){
@@ -124,6 +140,27 @@ mp <- function(string, varorder){
   if(length(elements[[1]]) == 1 && elements[[1]] == '0'){ # fix - first coef
   	elements <- elements[2:length(elements)]
   }
+
+  # fix exponents, division, multiplication of constants
+  parseNumberElem <- function(x) as.character(eval(parse(text = x)))
+  
+  elements <- lapply(elements, function(x){
+
+  	varElems <- str_detect(x, "[a-zA-Z]")
+  	
+  	# parse only number elements e.g. c("1", "3", "5^2")
+  	if(!any(varElems)){
+  	  x <- paste(x, collapse = "*")
+  	  return(parseNumberElem(x))
+  	}
+  	
+  	# combine coefficient elements
+  	xCoefs <- x[!varElems]
+  	xCoef <- parseNumberElem(paste(xCoefs, collapse = "*"))
+  	
+  	#
+  	c(xCoef, x[varElems])
+  })
 
   
   # determine variables
@@ -161,6 +198,7 @@ mp <- function(string, varorder){
     c(v, coef = coef)
   })
   
+
   # mpoly 
   out <- mpoly(l)
   

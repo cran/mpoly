@@ -2,7 +2,7 @@
 \alias{burst}
 \title{Enumerate integer r-vectors summing to n}
 \usage{
-  burst(n, r = n)
+burst(n, r = n)
 }
 \arguments{
   \item{n}{integer to sum to}
@@ -10,11 +10,11 @@
   \item{r}{number of cells (dimension of vectors)}
 }
 \value{
-  a matrix whose rows are the n-tuples
+a matrix whose rows are the n-tuples
 }
 \description{
-  Determine all r-vectors with nonnegative integer entries
-  summing to n
+Determine all r-vectors with nonnegative integer entries
+summing to n
 }
 \examples{
 burst(4)

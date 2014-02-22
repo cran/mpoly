@@ -3,9 +3,9 @@
 \alias{mpoly}
 \alias{mpoly-package}
 \alias{package-mpoly}
-\title{Define an mpoly object.}
+\title{Multivariate polynomials in R.}
 \usage{
-  mpoly(list, varorder)
+mpoly(list, varorder)
 }
 \arguments{
   \item{list}{a list from which to construct an mpoly
@@ -15,15 +15,15 @@
   intrinsic variable order of the polynomial}
 }
 \value{
-  Object of class mpoly.
+Object of class mpoly.
 }
 \description{
-  mpoly is the most basic function used to create objects
-  of class mpoly. However, it is not a general purpose
-  function; for that see mp.
+A package for symbolic computation and more with
+multivariate polynomials
 
-  A package for symbolic computation and more with
-  multivariate polynomials
+mpoly is the most basic function used to create objects of
+class mpoly. However, it is not a general purpose function;
+for that see mp.
 }
 \examples{
 list <- list(
@@ -53,9 +53,9 @@ mpoly(list)
 # mpoly(list(c(x = 1, y = 2, coef = 2)), varorder = 'x')
 }
 \author{
-  David Kahle \email{david.kahle@gmail.com}
+David Kahle \email{david.kahle@gmail.com}
 }
 \seealso{
-  \code{\link{mp}}
+\code{\link{mp}}
 }
 
