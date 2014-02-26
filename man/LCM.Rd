@@ -2,7 +2,7 @@
 \alias{LCM}
 \title{Compute the least common multiple of two numbers.}
 \usage{
-  LCM(x, y)
+LCM(x, y)
 }
 \arguments{
   \item{x}{an object of class numeric}
@@ -10,11 +10,11 @@
   \item{y}{an object of class numeric}
 }
 \value{
-  The least common multiple of x and y.
+The least common multiple of x and y.
 }
 \description{
-  A simple algorithm to compute the least common multiple
-  of two numbers
+A simple algorithm to compute the least common multiple of
+two numbers
 }
 \examples{
 LCM(5,7)

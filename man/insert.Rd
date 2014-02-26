@@ -2,7 +2,7 @@
 \alias{insert}
 \title{Insert an element into a vector.}
 \usage{
-  insert(elem, slot, v)
+insert(elem, slot, v)
 }
 \arguments{
   \item{elem}{element to insert}
@@ -12,10 +12,10 @@
   \item{v}{vector to insert into}
 }
 \value{
-  vector with element inserted
+vector with element inserted
 }
 \description{
-  Insert an element into a vector.
+Insert an element into a vector.
 }
 \examples{
 insert(2, 1, 1)

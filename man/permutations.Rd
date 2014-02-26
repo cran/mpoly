@@ -2,17 +2,17 @@
 \alias{permutations}
 \title{Determine all permutations of a set.}
 \usage{
-  permutations(set)
+permutations(set)
 }
 \arguments{
   \item{set}{a set}
 }
 \value{
-  a matrix whose rows are the permutations of set
+a matrix whose rows are the permutations of set
 }
 \description{
-  An implementation of the Steinhaus-Johnson-Trotter
-  permutation algorithm.
+An implementation of the Steinhaus-Johnson-Trotter
+permutation algorithm.
 }
 \examples{
 permutations(1:3)

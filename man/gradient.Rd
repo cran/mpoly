@@ -2,22 +2,22 @@
 \alias{gradient}
 \title{Compute gradient of a multivariate polynomial.}
 \usage{
-  gradient(mpoly)
+gradient(mpoly)
 }
 \arguments{
   \item{mpoly}{an object of class mpoly}
 }
 \value{
-  An object of class mpoly or mpolyList.
+An object of class mpoly or mpolyList.
 }
 \description{
-  This is a wrapper for deriv.mpoly.
+This is a wrapper for deriv.mpoly.
 }
 \examples{
 m <- mp('x y + y z + z^2')
 gradient(m)
 }
 \seealso{
-  \code{\link{deriv.mpoly}}
+\code{\link{deriv.mpoly}}
 }
 

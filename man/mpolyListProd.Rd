@@ -3,7 +3,7 @@
 \alias{mpolyListProd}
 \title{Multiply vectors multivariate polynomials element-wise.}
 \usage{
-  \method{*}{mpolyList} (e1, e2)
+\method{*}{mpolyList}(e1, e2)
 }
 \arguments{
   \item{e1}{an object of class mpoly}
@@ -11,10 +11,10 @@
   \item{e2}{an object of class mpoly}
 }
 \value{
-  An object of class mpoly.
+An object of class mpoly.
 }
 \description{
-  Compute the product of two mpolyList objects.
+Compute the product of two mpolyList objects.
 }
 \examples{
 ( ms1 <- mp( c('x + 1', 'x + 2') ) )

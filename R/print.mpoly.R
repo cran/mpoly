@@ -91,7 +91,7 @@ print.mpoly <- function(x, stars = FALSE, varorder, order, ...){
     s <- gsub('\\^1 ', ' ', s)        # remove ^1's  
     s <- gsub('\\+  -', '-  ', s)     # fix subtractions                       
     s <- substr(s, 2, nchar(s) - 1)   # remove ' ' pads
-    if( substr(s, 1, 1) == '-' && x[[1]]['coef'] == -1 ){
+    if( substr(s, 1, 1) == '-' && x[[1]]['coef'] == -1 && length(x[[1]]) > 1 ){
 	  s <- paste('-1', substr(s, 2, nchar(s)))
 	}
     message(s)

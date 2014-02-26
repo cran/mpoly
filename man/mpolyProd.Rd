@@ -3,7 +3,7 @@
 \alias{mpolyProd}
 \title{Multiply multivariate polynomials.}
 \usage{
-  \method{*}{mpoly} (e1, e2)
+\method{*}{mpoly}(e1, e2)
 }
 \arguments{
   \item{e1}{an object of class mpoly}
@@ -11,10 +11,10 @@
   \item{e2}{an object of class mpoly}
 }
 \value{
-  An object of class mpoly.
+An object of class mpoly.
 }
 \description{
-  Compute the product of two mpoly objects.
+Compute the product of two mpoly objects.
 }
 \examples{
 x <- mpoly(list(

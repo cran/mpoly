@@ -2,24 +2,24 @@
 \alias{partitions}
 \title{Enumerate the partitions of an integer}
 \usage{
-  partitions(n)
+partitions(n)
 }
 \arguments{
   \item{n}{an integer}
 }
 \value{
-  a matrix whose rows are the n-tuples
+a matrix whose rows are the n-tuples
 }
 \description{
-  Determine all unrestricted partitions of an integer.
-  This function is equivalent to the function parts in the
-  partitions package.
+Determine all unrestricted partitions of an integer.  This
+function is equivalent to the function parts in the
+partitions package.
 }
 \examples{
 partitions(5)
 str(partitions(5))
 }
 \author{
-  Robin K. S. Hankin, from package partitions
+Robin K. S. Hankin, from package partitions
 }
 

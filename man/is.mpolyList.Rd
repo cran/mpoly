@@ -2,16 +2,16 @@
 \alias{is.mpolyList}
 \title{Test whether an object is an mpolyList.}
 \usage{
-  is.mpolyList(mpolyList)
+is.mpolyList(mpolyList)
 }
 \arguments{
   \item{mpolyList}{object whose class is in question}
 }
 \value{
-  Logical.
+Logical.
 }
 \description{
-  Test whether an object is an mpolyList.
+Test whether an object is an mpolyList.
 }
 \examples{
 is.mpolyList(mp(c('x + 1', 'y - 1')))

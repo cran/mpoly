@@ -10,6 +10,7 @@
 #' @return An object of class mpoly.
 #' @export
 #' @examples
+#'	
 #' list <- list(
 #'   c(x = 1, y = 2, z = 1, coef = 1),
 #'   c(x = 2, y = 0, z = 2, coef = 1),
@@ -30,6 +31,8 @@
 #' reorder(mp('x + y'), varorder = c('y','x','z'), order = 'lex')
 #' reorder(mp('x y + y + 2 x y z^2'), varorder = c('y','x','z'))
 #' reorder(mp('x^2 + y x + y'), order = 'lex')
+#'
+#'
 reorder.mpoly <- function(x, varorder = vars(x), order, ...){
   
   ## set basic quantities

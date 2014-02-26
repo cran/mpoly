@@ -3,7 +3,7 @@
 \alias{mpolyAdd}
 \title{Add multivariate polynomials.}
 \usage{
-  \method{+}{mpoly} (e1, e2)
+\method{+}{mpoly}(e1, e2)
 }
 \arguments{
   \item{e1}{an object of class mpoly}
@@ -11,10 +11,10 @@
   \item{e2}{an object of class mpoly}
 }
 \value{
-  object of class mpoly
+object of class mpoly
 }
 \description{
-  Compute the sum of two multivariate polynomials.
+Compute the sum of two multivariate polynomials.
 }
 \examples{
 list <- list(

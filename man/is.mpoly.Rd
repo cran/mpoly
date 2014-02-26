@@ -2,15 +2,15 @@
 \alias{is.mpoly}
 \title{Test whether an object is an mpoly object.}
 \usage{
-  is.mpoly(x)
+is.mpoly(x)
 }
 \arguments{
   \item{x}{object to be tested}
 }
 \value{
-  Vector of logicals.
+Vector of logicals.
 }
 \description{
-  Test whether an object is an mpoly object.
+Test whether an object is an mpoly object.
 }
 
