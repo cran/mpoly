@@ -76,3 +76,5 @@ deriv.mpoly <- function(expr, var, ...){
 gradient <- function(mpoly){
   deriv(mpoly, var = vars(mpoly))
 }
+
+

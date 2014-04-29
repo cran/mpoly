@@ -40,7 +40,9 @@ mp('x y^2 - y^2 x') # -> 0
 mp('5^2') # -> 25
 mp('2^2 x + 5^2 + 3^2') # -> 4 x  +  34
 mp('1 1') # -> 1
+mp('-1 -1 -1') # -> 1
 mp('1  3 5^2 + 2 3^4 x') # -> 75  + 162 x
+mp("x - 2 x -3") # 7 x
 
 ( ms <- mp(c('x + y', '2 x')) )
 is.mpolyList(ms)
@@ -60,7 +62,34 @@ mp('-4 x')
 mp('y + -1 x')
 mp('-1 + x')
 
-gradient( mp('x + 2 y + x^2 y + x y z') )
+mp("(x)")
+mp("((((x))))")
+mp("(x + 0)")
+mp("(x + 1)")
+mp("(x - 1)")
+mp("(-1 x - 1)")
+mp("2 (x + 1)")
+mp("-1 (x + 1)")
+
+
+string <- "-2 x + -1 x (3 x - (7 - 2 x)) 7 (x + 1) -3"
+mp(string)
+# note that in the above problem, the -3 on the end is
+# times negative 3, not minus 3; that would be "... - 3"
+
+mp("(x + 1) (x - 1)")
+mp("(x + 1) (x + 2)")
+mp("(x + 1)^5")
+mp("x + 1")^5
+mp("3 (x + 1) (x + 2)^2")
+
+mp("(x + y) (x - y)")
+mp("((x + y) (x - y))^2")
+mp("((x + y) (x - y)^2)")
+
+
+gradient( mp("x + 2 y + x^2 y + x y z") )
+gradient( mp("(x + y)^10") )
 
 # mp and the print methods are kinds of inverses of each other
 ( polys <- mp(c('x + y', 'x - y')) )
@@ -68,13 +97,31 @@ strings <- print(polys)
 strings
 mp(strings)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # possible specification syntax issues -
 mp('x + 4x') # note the 4x as opposed to 4 x
 mp('x - 4x') # same
-mp('x -1') # -> x  -  11
-
-# future -
-#mp('(x-2)^2')
+mp('x -1') # -> -1 x
 }
 \author{
 David Kahle \email{david.kahle@gmail.com}

@@ -12,7 +12,7 @@
 #' apply(permutations(letters[1:6]), 1, paste, collapse = '')
 permutations <- function(set){
   r <- length(set)
-  if(r == 1) return(as.matrix(set))
+  if(r == 1 && is.numeric(set)) return(permutations(1:set))
     
   row2diag <- function(row, direction){
   	np1 <- length(row) + 1
@@ -59,6 +59,9 @@ permutations <- function(set){
     out <- as.numeric(out)
     dim(out) <- d
   }
+  
+  # reorder outcomes
+  out <- out[do.call("order", split(out, col(out))),]
   
   # return
   unique(out)
