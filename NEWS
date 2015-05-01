@@ -1,3 +1,20 @@
+Version 0.1.0
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* is.linear function.
+* round now has a method applicable to mpoly objects that rounds the coefficients.  this is particularly nice in combination with as.mpoly.lm.
+* hard braces are now allowed for variables, e.g. x[1,1]
+
+CHANGES
+
+* vastly enhanced mp parser based on stringr 9.0.0 (now dependent on stringi).
+* tests added.
+* description file updated for CRAN's standards.
+
+
+
 Version 0.0.5
 -------------------------------------------------------------------------
 
