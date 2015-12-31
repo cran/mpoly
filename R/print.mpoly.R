@@ -3,12 +3,14 @@
 #' This is the major function used to view multivariate polynomials.
 #' 
 #' @param x an object of class mpoly
-#' @param stars print the multivariate polynomial in the more computer-friendly
-#'   asterisk notation (default FALSE)
+#' @param stars print the multivariate polynomial in the more
+#'   computer-friendly asterisk notation (default FALSE)
 #' @param varorder the order of the variables
-#' @param order a total order used to order the monomials in the printing
+#' @param order a total order used to order the monomials in the
+#'   printing
 #' @param ... additional parameters
-#' @usage \method{print}{mpoly}(x, stars = FALSE, varorder, order, ...)
+#' @usage \method{print}{mpoly}(x, stars = FALSE, varorder, order,
+#'   ...)
 #' @return Invisible string of the printed object.
 #' @export
 #' @examples
@@ -69,7 +71,7 @@ print.mpoly <- function(x, stars = FALSE, varorder, order, ...){
   }
   
   
-  
+ 
   
   ## print with stars or not, ^ coded first then *
   
@@ -77,10 +79,10 @@ print.mpoly <- function(x, stars = FALSE, varorder, order, ...){
   	
     ## make printed terms
     terms <- sapply(x, function(v){
-      if(length(v) == 1) return(unname(v)) # if a constant term
+      if(length(v) == 1) return(format(v[["coef"]], scientific=FALSE)) # if a constant term
       p <- length(v) - 1
       s <- paste(names(v[1:p]), v[1:p], sep = '^', collapse = ' ')
-      s <- paste(unname(v['coef']), s)
+      s <- paste(format(v[["coef"]], scientific=FALSE), s)
       if(substr(s, 1, 2) == '1 ') s <- substr(s, 3, nchar(s))
       if(substr(s, 1, 3) == '-1 ') s <- paste('-', substr(s, 4, nchar(s)), sep = '')
       s
@@ -102,10 +104,10 @@ print.mpoly <- function(x, stars = FALSE, varorder, order, ...){
   	
     ## make printed terms
     terms <- sapply(x, function(v){
-      if(length(v) == 1) return(unname(v)) # if a constant term
+      if(length(v) == 1) return(format(v[["coef"]], scientific=FALSE)) # if a constant term
       p <- length(v) - 1
       s <- paste(names(v[1:p]), v[1:p], sep = '**', collapse = ' * ')
-      s <- paste(unname(v['coef']), s, sep = ' * ')
+      s <- paste(format(v[["coef"]], scientific=FALSE), s, sep = ' * ')
       if(substr(s, 1, 4) == '1 * ') s <- substr(s, 5, nchar(s))
       if(substr(s, 1, 5) == '-1 * ') s <- paste('-', substr(s, 6, nchar(s)), sep = '')
       s      

@@ -1,7 +1,7 @@
 #' Enumerate integer r-vectors summing to n
 #' 
-#' Determine all r-vectors with nonnegative integer entries summing to n.  Note 
-#' that this is intended to be optimized.
+#' Determine all r-vectors with nonnegative integer entries summing 
+#' to n.  Note that this is intended to be optimized.
 #' 
 #' @param n integer to sum to
 #' @param r number of components
@@ -30,13 +30,13 @@ burst <- function(n, r = n){
   
   if(r == 1) return(n)
    
-  ## comptue all partitions of the number (order does not matter)
+  ## compute all partitions of the number (order does not matter)
   parts <- partitions(n)
 
   ## convert to list, remove 0's
   partsWOzeros <- apply(parts, 1, function(row) row[row != 0] )
   
-  ## select all those with lenght less than or equal to r
+  ## select all those with length less than or equal to r
   isAtLongest <- function(howLong){
     function(v) length(v) <= howLong
   }

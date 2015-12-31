@@ -1,57 +1,59 @@
 #' Change a multivariate polynomial into a function.
 #' 
-#' Transforms an mpoly object into a function which can be evaluated.
+#' Transforms an mpoly object into a function which can be
+#' evaluated.
 #' 
 #' @param x an object of class mpoly
-#' @param varorder the order in which the arguments of the function will be
-#'   provided
-#' @param vector whether the function should take a vector argument (TRUE) or a
-#'   series of arguments (FALSE)
+#' @param varorder the order in which the arguments of the function
+#'   will be provided
+#' @param vector whether the function should take a vector argument
+#'   (TRUE) or a series of arguments (FALSE)
 #' @param ... any additional arguments
-#' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector = TRUE, ...)
+#' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector
+#'   = TRUE, ...)
+#' @seealso \code{\link{plug}}
 #' @export
 #' @examples
-#' mpoly <- mp('1 2 3 4')
-#' f <- as.function(mpoly)
+#' 
+#' p <- mp('1 2 3 4')
+#' f <- as.function(p)
 #' f(10) # -> 24
-#' mpoly <- mp('x + 3 x y + z^2 x')
-#' f <- as.function(mpoly)
+#' 
+#' p <- mp("x + 3 x y + z^2 x")
+#' f <- as.function(p)
 #' f(1:3) # -> 16
 #' f(c(1,1,1)) # -> 5
 #' 
-#' f <- as.function(mpoly, vector = FALSE)
+#' f <- as.function(p, vector = FALSE)
 #' f(1, 2, 3) # -> 16
 #' f(1, 1, 1) # -> 5
 #' 
-#' f <- as.function(mpoly, varorder = c('z','y','x'), vector = FALSE)
+#' f <- as.function(p, varorder = c('z','y','x'), vector = FALSE)
 #' f(3, 2, 1) # -> 16
 #' f(1, 1, 1) # -> 5
 #' 
 as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
 	
-  # argument checking
+  ## argument checking
   stopifnot(is.character(varorder))
   stopifnot(is.logical(vector))  	
-
-  if(!is.mpoly(x)){
-    stop('x must be of class mpoly.', call. = FALSE)
-  }
+  stopifnot(is.mpoly(x))
 	
   if(!setequal(varorder, vars(x))){
     stop('varorder must contain all of the variables of x.',
       call. = FALSE)
   }
   
+  ## determine the number of variables
   p <- length(vars(x))
-  
-  if(length(vars) == 0){ # constant function
-    return(function(x){ return(unclass(x)[[1]]['coef']) })
-  }
+ 
+  ## deal with constant polynomials
+  if(is.constant(x)) return( function(.) unlist(x)[["coef"]] )
     
-  # univariate polynomial
+  ## univariate polynomial
   if(p == 1) vector <- FALSE
   
-  # general polynomials as a vector argument
+  ## general polynomials as a vector argument
   if(vector){
     mpoly_string <- suppressMessages(print.mpoly(x, stars = TRUE))
     mpoly_string <- paste(' ', mpoly_string, ' ', sep = '')
@@ -73,7 +75,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
     return(eval(parse(text = mpoly_string)))
   }
   
-  # general polynomials as a bunch of arguments
+  ## general polynomials as a bunch of arguments
   if(!vector){
     mpoly_string <- suppressMessages(print.mpoly(x, stars = TRUE))
     message('f(', paste(varorder, collapse = ', '), ')', sep = '')
@@ -89,3 +91,56 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
   }  
   
 }
+
+
+
+
+
+
+
+
+
+
+as.function.bernstein <- function(x, ...){
+ 
+  ## grab bernstein values
+  k <- attr(x, "bernstein")$k
+  n <- attr(x, "bernstein")$n
+  
+  ## return exp'd log function
+  function(.) exp(lchoose(n, k) + k*log(.) + (n-k)*log(1-.))
+  
+}
+
+
+
+
+
+
+
+as.function.jacobi <- function(x, ...){
+  return(as.function.mpoly(x)) ## below is broken.
+  
+  ## grab bernstein values
+  d <- attr(x, "jacobi")$degree
+  k <- attr(x, "jacobi")$kind
+  i <- attr(x, "jacobi")$indeterminate
+  n <- attr(x, "jacobi")$normalized
+  a <- attr(x, "jacobi")$alpha
+  b <- attr(x, "jacobi")$beta
+  
+  ## return exp'd log function #
+  #http://en.wikipedia.org/wiki/Jacobi_polynomials function(.)
+  #pochhammer(a+1, d) / factorial(d) * hypergeo(-d, 1+a+b+d, a+1,
+  #(1-.)/2)
+  
+}
+
+
+
+
+
+
+
+
+

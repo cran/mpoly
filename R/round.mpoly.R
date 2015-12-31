@@ -9,14 +9,13 @@
 #' @seealso \code{\link{mp}}
 #' @export
 #' @examples
-#' \dontrun{
 #' 
 #' p <- mp("x + 3.14159265")^4
 #' p
 #' round(p)
 #' round(p, 0)
 #' 
-#' 
+#' \dontrun{
 #' library(plyr)
 #' library(ggplot2)
 #' library(stringr)
@@ -39,14 +38,24 @@
 #'   stat_function(fun = as.function(p), colour = 'red') +
 #'   stat_function(fun = as.function(round(p,1)), colour = 'blue')
 #'
+#'
 #' }
 #' 
 round.mpoly <- function(x, digits = 3){
+  
+  ## round coefficients
   p <- lapply(x, function(term){
     term["coef"] <- round(term["coef"], digits = digits)
     term
   })
+  
+  ## drop zero terms
+  p <- Filter(function(v) v[["coef"]] != 0, p)
+  
+  ## class
   class(p) <- "mpoly"
+  
+  ## out
   p
 }
 
