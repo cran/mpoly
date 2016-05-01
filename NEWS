@@ -1,3 +1,26 @@
+Version 1.0.1
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* mpoly now provided functions for extracting the leading term (LT),
+  leading coefficient (LC), leading monomial (LM), and arbitrary 
+  term (as in p[3]).  You can also compute the multidegree of a 
+  polynomial (multideg).
+* new function exponents extracts the exponents of an mpoly.
+* new functions homogenize, dehomogenize, homogeneous_components extract
+  those components of a multivariate polynomial.
+* as.function() now returns vectorized functions when the polynomial(s) 
+  are only of one variable.
+
+CHANGES
+
+* terms.mpoly is now deprecated, use monomials.
+* reorder.mpoly now defaults to the lex order.
+
+
+
+
 Version 1.0.0
 -------------------------------------------------------------------------
 

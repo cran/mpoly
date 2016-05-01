@@ -22,7 +22,7 @@ Note that using \code{\link{as.function}} on the resulting Bezier
 polynomials is made numerically stable by taking advantage of de
 Casteljau's algorithm; it does not use the polynomial that is
 printed to the screen.  See \code{\link{bezierFunction}} for
-details
+details.
 }
 \examples{
 
@@ -132,6 +132,15 @@ df <- as.data.frame(f(s))
 qplot(speed, dist, data = cars) +
   geom_path(data = df, color = "red")
 
+# the curve is not invariant to permutations of the points
+# but it always goes through the first and last points
+permute_rows <- function(df) df[sample(nrow(df)),]  
+p <- bezier(permute_rows(cars))
+f <- as.function(p)
+df <- as.data.frame(f(s))
+qplot(speed, dist, data = cars) +
+  geom_path(data = df, color = "red")
+
 
 
 }
@@ -139,6 +148,6 @@ qplot(speed, dist, data = cars) +
 David Kahle
 }
 \seealso{
-bezierFunction
+\code{\link{bezierFunction}}
 }
 

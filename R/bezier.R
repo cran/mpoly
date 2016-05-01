@@ -5,7 +5,7 @@
 #' polynomials is made numerically stable by taking advantage of de
 #' Casteljau's algorithm; it does not use the polynomial that is
 #' printed to the screen.  See \code{\link{bezierFunction}} for
-#' details
+#' details.
 #' 
 #' @param ... either a sequence of points or a matrix/data frame of
 #'   points, see examples
@@ -13,7 +13,7 @@
 #'   polynomial
 #' @return a mpoly object
 #' @author David Kahle
-#' @seealso bezierFunction
+#' @seealso \code{\link{bezierFunction}}
 #' @export
 #' @examples
 #' 
@@ -118,6 +118,15 @@
 #' 
 #' s <- seq(0, 1, length.out = 201) 
 #' p <- bezier(cars)
+#' f <- as.function(p)
+#' df <- as.data.frame(f(s))
+#' qplot(speed, dist, data = cars) +
+#'   geom_path(data = df, color = "red")
+#' 
+#' # the curve is not invariant to permutations of the points
+#' # but it always goes through the first and last points
+#' permute_rows <- function(df) df[sample(nrow(df)),]  
+#' p <- bezier(permute_rows(cars))
 #' f <- as.function(p)
 #' df <- as.data.frame(f(s))
 #' qplot(speed, dist, data = cars) +
