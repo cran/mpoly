@@ -1,3 +1,19 @@
+Version 1.0.2
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* you can now pass * for multiplication in mp, so that mp("x*x") works 
+  properly.
+
+CHANGES
+
+* all java stuff has been removed; see the m2r package for grobner basis
+  computations.
+
+
+
+
 Version 1.0.1
 -------------------------------------------------------------------------
 
