@@ -30,7 +30,7 @@
 #' 
 #' # mp and the print methods are kinds of inverses of each other
 #' ( polys <- mp(c("x + y", "x - y")) )
-#' strings <- print(polys)
+#' strings <- print(polys, silent = TRUE)
 #' strings
 #' mp(strings)
 #' 
@@ -259,6 +259,7 @@ parse_parenthetical_term <- function(string){
 # parse_nonparenthetical_polynomial("x    +       y")
 # parse_nonparenthetical_polynomial("x    -       y+-xy")
 # parse_nonparenthetical_polynomial("1e-2 x")
+# parse_nonparenthetical_polynomial("1e+2 x")
 parse_nonparenthetical_polynomial <- function(string){
   
   # trim
@@ -435,8 +436,8 @@ fix_term_joins <- function(string){
   }
     
   # break string into pieces of terms and joins
-  terms <- str_extract_all(string, "[[:alnum:]\\^\\|\\.\\[\\]\\,]+")[[1]]
-  joins <- str_split(string, "[[:alnum:]\\^\\.\\[\\]\\,|]+")[[1]]
+  terms <- str_extract_all(string, "[[:alnum:]\\^\\|\\.\\[\\]\\,_]+")[[1]]
+  joins <- str_split(string, "[[:alnum:]\\^\\.\\[\\]\\,|_]+")[[1]]
   if(joins[1] == "") joins <- joins[-1] 
   if(joins[length(joins)] == "") joins <- joins[-length(joins)] 
   if(length(joins) == 0L) return(string)
