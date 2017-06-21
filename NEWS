@@ -1,3 +1,19 @@
+Version 1.0.5
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* Add is.unipoly(), a predicate for univariate polynomials.
+* Add solve_unipoly(), a mpoly wrapper for polyroot().
+* plug() now works on mpolyLists.
+
+CHANGES
+
+* as.function.mpoly() and as.function.mpolyList() no longer message
+  when the resulting function arguments are clear.
+
+
+
 Version 1.0.4
 -------------------------------------------------------------------------
 
@@ -7,6 +23,8 @@ FIXES
   (Thanks @sommars)
 * Move README from figures/ to tools/
 * Add https:// for paper reference
+
+
 
 Version 1.0.3
 -------------------------------------------------------------------------
