@@ -1,3 +1,24 @@
+Version 1.1.0
+-------------------------------------------------------------------------
+
+CHANGES
+
+* Packages are now imported more nicely (@importFrom in all cases).
+* mp() is now based on R's parser and mpoly arithmetic. The performance 
+  boost varies with things like how many parenthetical expressions are 
+  used, but in basic cases ranged from one to a few orders of magnitude.
+  More importantly, many hard to catch tokenizing problems should be gone.
+
+FIXES
+
+* A bug in as.function() that caused it to error on univariate polynomials
+  with indeterminates with numbers in them (e.g. x1) is now fixed.
+  (Thanks @Blaza)
+  
+* A bug in mpoly/numeric arithmetic.  Fixed by @Blaza (thanks!) and tests
+  added.
+  
+
 Version 1.0.5
 -------------------------------------------------------------------------
 

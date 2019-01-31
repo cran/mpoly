@@ -8,9 +8,10 @@
 #'   will be provided
 #' @param vector whether the function should take a vector argument
 #'   (TRUE) or a series of arguments (FALSE)
+#' @param silent suppress messages
 #' @param ... any additional arguments
 #' @usage \method{as.function}{mpoly}(x, varorder = vars(x), vector
-#'   = TRUE, ...)
+#'   = TRUE, silent = FALSE, ...)
 #' @seealso \code{\link{plug}}
 #' @export
 #' @examples
@@ -41,29 +42,31 @@
 #' f <- as.function(p)
 #' f(10) # -> 24
 #' 
-as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
+#' 
+#' 
+#' 
+as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, silent = FALSE, ...){
 	
-  ## argument checking
+  # argument checking
   stopifnot(is.character(varorder))
   stopifnot(is.logical(vector))  	
   stopifnot(is.mpoly(x))
 	
   if(!setequal(varorder, vars(x))){
-    stop("varorder must contain all of the variables of x.",
-      call. = FALSE)
+    stop("varorder must contain all of the variables of x.", call. = FALSE)
   }
   
-  ## determine the number of variables
+  # determine the number of variables
   p <- length(vars(x))
  
-  ## deal with constant polynomials
+  # deal with constant polynomials
   if(is.constant(x)) return( function(.) unlist(x)[["coef"]] )
     
-  ## univariate polynomial
+  # univariate polynomial
   if(p == 1){
     mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
-    mpoly_string <- chartr(vars(x), ".", mpoly_string)
-    message("f(.) with . = ", vars(x))
+    mpoly_string <- gsub(vars(x), ".", mpoly_string)
+    if(!silent) message("f(.) with . = ", vars(x))
     f <- function(){}
     formals(f) <- alist(. = )
     #expression(if(length(.) > 1) return(sapply(., f))),
@@ -78,7 +81,7 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
     return(f)
   }
   
-  ## general polynomials as a vector argument
+  # general polynomials as a vector argument
   if(vector){
     mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
     mpoly_string <- paste(" ", mpoly_string, " ", sep = "")
@@ -95,15 +98,15 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
       )      
     }
     v <- paste("(", paste(varorder, collapse = ", "), ")", sep = "")
-    message("f(.) with . = ", v)
+    if(!silent) message("f(.) with . = ", v)
     mpoly_string <- paste("function(.){", mpoly_string, "}")    
     return(eval(parse(text = mpoly_string)))
   }
   
-  ## general polynomials as a bunch of arguments
+  # general polynomials as a bunch of arguments
   if(!vector){
     mpoly_string <- print.mpoly(x, stars = TRUE, silent = TRUE)
-    message("f(", paste(varorder, collapse = ", "), ")", sep = "")
+    if(!silent) message("f(", paste(varorder, collapse = ", "), ")", sep = "")
     mpoly_string <- paste(
       "function(", 
       paste(varorder, collapse = ", "),
@@ -128,11 +131,11 @@ as.function.mpoly <- function(x, varorder = vars(x), vector = TRUE, ...){
 
 as.function.bernstein <- function(x, ...){
  
-  ## grab bernstein values
+  # grab bernstein values
   k <- attr(x, "bernstein")$k
   n <- attr(x, "bernstein")$n
   
-  ## return exp"d log function
+  # return exp"d log function
   function(.) exp(lchoose(n, k) + k*log(.) + (n-k)*log(1-.))
   
 }
@@ -146,7 +149,7 @@ as.function.bernstein <- function(x, ...){
 as.function.jacobi <- function(x, ...){
   return(as.function.mpoly(x)) ## below is broken.
   
-  ## grab bernstein values
+  # grab bernstein values
   d <- attr(x, "jacobi")$degree
   k <- attr(x, "jacobi")$kind
   i <- attr(x, "jacobi")$indeterminate
@@ -154,7 +157,7 @@ as.function.jacobi <- function(x, ...){
   a <- attr(x, "jacobi")$alpha
   b <- attr(x, "jacobi")$beta
   
-  ## return exp'd log function #
+  # return exp'd log function #
   #http://en.wikipedia.org/wiki/Jacobi_polynomials function(.)
   #pochhammer(a+1, d) / factorial(d) * hypergeo(-d, 1+a+b+d, a+1,
   #(1-.)/2)

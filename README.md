@@ -1,22 +1,32 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 mpoly
 =====
+
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/mpoly)](https://cran.r-project.org/package=mpoly)
+<!-- badges: end -->
 
 Specifying polynomials
 ----------------------
 
-**mpoly** is a simple collection of tools to help deal with multivariate polynomials *symbolically* and functionally in R. Polynomials are defined with the `mp()` function:
+**mpoly** is a simple collection of tools to help deal with multivariate
+polynomials *symbolically* and functionally in R. Polynomials are
+defined with the `mp()` function:
 
 ``` r
 library(mpoly)
-# Loading required package: stringr
 mp("x + y")
 # x  +  y
-mp("(x + 4y)^2 (x - .25)")
+mp("(x + 4 y)^2 (x - .25)")
 # x^3  -  0.25 x^2  +  8 x^2 y  -  2 x y  +  16 x y^2  -  4 y^2
 ```
 
-[Term orders](http://en.wikipedia.org/wiki/Lexicographical_order#Monomials) are available with the reorder function:
+[Term
+orders](http://en.wikipedia.org/wiki/Lexicographical_order#Monomials)
+are available with the reorder function:
 
 ``` r
 (p <- mp("(x + y)^2 (1 + x)"))
@@ -27,7 +37,7 @@ reorder(p, varorder = c("x","y"), order = "glex")
 # x^3  +  2 x^2 y  +  x y^2  +  x^2  +  2 x y  +  y^2
 ```
 
-Vectors of polynomials (`mpolyList`'s) can be specified in the same way:
+Vectors of polynomials (`mpolyList`’s) can be specified in the same way:
 
 ``` r
 mp(c("(x+y)^2", "z"))
@@ -38,7 +48,8 @@ mp(c("(x+y)^2", "z"))
 Polynomial parts
 ----------------
 
-You can extract pieces of polynoimals using the standard `[` operator, which works on its terms:
+You can extract pieces of polynoimals using the standard `[` operator,
+which works on its terms:
 
 ``` r
 p[1]
@@ -49,7 +60,8 @@ p[-1]
 # x^2  +  2 x^2 y  +  2 x y  +  x y^2  +  y^2
 ```
 
-There are also many other functions that can be used to piece apart polynomials, for example the leading term (default lex order):
+There are also many other functions that can be used to piece apart
+polynomials, for example the leading term (default lex order):
 
 ``` r
 LT(p)
@@ -104,7 +116,7 @@ monomials(p)
 Polynomial arithmetic
 ---------------------
 
-Arithmetic is defined for both polynomials (`+`, `-`, `*` and `^`)...
+Arithmetic is defined for both polynomials (`+`, `-`, `*` and `^`)…
 
 ``` r
 p1 <- mp("x + y")
@@ -120,13 +132,13 @@ p1^2
 # x^2  +  2 x y  +  y^2
 ```
 
-... and vectors of polynomials:
+… and vectors of polynomials:
 
 ``` r
 (ps1 <- mp(c("x", "y")))
 # x
 # y
-(ps2 <- mp(c("2x", "y+z")))
+(ps2 <- mp(c("2 x", "y + z")))
 # 2 x
 # y  +  z
 ps1 + ps2
@@ -157,7 +169,9 @@ gradient(p)
 Function coercion
 -----------------
 
-You can turn polynomials and vectors of polynomials into functions you can evaluate with `as.function()`. Here's a basic example using a single multivariate polynomial:
+You can turn polynomials and vectors of polynomials into functions you
+can evaluate with `as.function()`. Here’s a basic example using a single
+multivariate polynomial:
 
 ``` r
 f <- as.function(mp("x + 2 y")) # makes a function with a vector argument
@@ -170,7 +184,7 @@ f(1, 1)
 # [1] 3
 ```
 
-Here's a basic example with a vector of multivariate polynomials:
+Here’s a basic example with a vector of multivariate polynomials:
 
 ``` r
 (p <- mp(c("x", "2 y")))
@@ -186,7 +200,10 @@ f(1, 1)
 # [1] 1 2
 ```
 
-Whether you're working with a single multivariate polynomial or a vector of them (`mpolyList`), if it/they are actually univariate polynomial(s), the resulting function is vectorized. Here's an example with a single univariate polynomial.
+Whether you’re working with a single multivariate polynomial or a vector
+of them (`mpolyList`), if it/they are actually univariate polynomial(s),
+the resulting function is vectorized. Here’s an example with a single
+univariate polynomial.
 
 ``` r
 f <- as.function(mp("x^2"))
@@ -203,14 +220,13 @@ f(mat) # it's vectorized properly over arrays
 # [2,]    4   16
 ```
 
-Here's an example with a vector of univariate polynomials:
+Here’s an example with a vector of univariate polynomials:
 
 ``` r
 (p <- mp(c("t", "t^2")))
 # t
 # t^2
 f <- as.function(p)
-# f(.) with . = (t)
 f(1)
 # [1] 1 1
 f(1:3)
@@ -228,12 +244,17 @@ f <- as.function(mp("(x-2) x (x+2)"))
 x <- seq(-2.5, 2.5, .1)
 
 library(ggplot2); theme_set(theme_classic())
+# 
+# Attaching package: 'ggplot2'
+# The following object is masked from 'package:mpoly':
+# 
+#     vars
 qplot(x, f(x), geom = "line")
 ```
 
 ![](tools/README-asFunction-1.png)
 
-For multivariate polynomials, it's a little more complicated:
+For multivariate polynomials, it’s a little more complicated:
 
 ``` r
 f <- as.function(mp("x^2 - y^2")) 
@@ -249,7 +270,8 @@ qplot(x, y, data = df, geom = "tile", fill = f)
 Algebraic geometry
 ------------------
 
-**Grobner bases are no longer implemented, see [m2r](https://github.com/musicman3320/m2r)**
+**Grobner bases are no longer implemented, see
+[m2r](https://github.com/musicman3320/m2r)**
 
 ``` r
 # polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
@@ -274,11 +296,15 @@ homogeneous_components(p)
 Special polynomials
 -------------------
 
-**mpoly** can make use of many pieces of the **polynom** and **orthopolynom** packages with `as.mpoly()` methods. In particular, many special polynomials are available.
+**mpoly** can make use of many pieces of the **polynom** and
+**orthopolynom** packages with `as.mpoly()` methods. In particular, many
+special polynomials are available.
 
 #### [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials)
 
-You can construct [Chebyshev polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as follows:
+You can construct [Chebyshev
+polynomials](http://en.wikipedia.org/wiki/Chebyshev_polynomials) as
+follows:
 
 ``` r
 chebyshev(1)
@@ -318,7 +344,6 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 
 
 df <- as.function(chebPolys)(s) %>% cbind(s, .) %>% as.data.frame
-# f(.) with . = (x)
 names(df) <- c("x", paste0("T_", 0:N))
 mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
@@ -339,7 +364,6 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 # 375.375 x^5  -  288.75 x^3  +  39.375 x
  
 df <- as.function(jacPolys)(s) %>% cbind(s, .) %>% as.data.frame
-# f(.) with . = (x)
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree) +
@@ -361,7 +385,6 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 # 7.875 x^5  -  8.75 x^3  +  1.875 x
  
 df <- as.function(legPolys)(s) %>% cbind(s, .) %>% as.data.frame
-# f(.) with . = (x)
 names(df) <- c("x", paste0("P_", 0:N))
 mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
@@ -382,7 +405,6 @@ s <- seq(-3, 3, length.out = 201); N <- 5
 # x^5  -  10 x^3  +  15 x
 
 df <- as.function(hermPolys)(s) %>% cbind(s, .) %>% as.data.frame
-# f(.) with . = (x)
 names(df) <- c("x", paste0("He_", 0:N))
 mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
@@ -403,7 +425,6 @@ s <- seq(-5, 20, length.out = 201); N <- 5
 # -0.008333333 x^5  +  0.2083333 x^4  -  1.666667 x^3  +  5 x^2  -  5 x  +  1
 
 df <- as.function(lagPolys)(s) %>% cbind(s, .) %>% as.data.frame
-# f(.) with . = (x)
 names(df) <- c("x", paste0("L_", 0:N))
 mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree) +
@@ -414,7 +435,10 @@ qplot(x, value, data = mdf, geom = "path", color = degree) +
 
 #### [Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial)
 
-[Bernstein polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not in **polynom** or **orthopolynom** but are available in **mpoly** with `bernstein()`:
+[Bernstein
+polynomials](http://en.wikipedia.org/wiki/Bernstein_polynomial) are not
+in **polynom** or **orthopolynom** but are available in **mpoly** with
+`bernstein()`:
 
 ``` r
 bernstein(0:4, 4)
@@ -435,7 +459,6 @@ N <- 5 # number of bernstein polynomials to plot
 # x^5
 
 df <- as.function(bernPolys)(s) %>% cbind(s, .) %>% as.data.frame
-# f(.) with . = (x)
 names(df) <- c("x", paste0("B_", 0:N))
 mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
@@ -443,7 +466,9 @@ qplot(x, value, data = mdf, geom = "path", color = degree)
 
 ![](tools/README-bernstein-1.png)
 
-You can use the `bernsteinApprox()` function to compute the Bernstein polynomial approximation to a function. Here's an approximation to the standard normal density:
+You can use the `bernsteinApprox()` function to compute the Bernstein
+polynomial approximation to a function. Here’s an approximation to the
+standard normal density:
 
 ``` r
 p <- bernsteinApprox(dnorm, 15, -1.25, 1.25)
@@ -465,7 +490,9 @@ qplot(x, y, data = df, geom = "path", color = which)
 [Bezier polynomials and curves](http://en.wikipedia.org/wiki/Bézier_curve)
 --------------------------------------------------------------------------
 
-You can construct [Bezier polynomials](http://en.wikipedia.org/wiki/Bézier_curve) for a given collection of points with `bezier()`:
+You can construct [Bezier
+polynomials](http://en.wikipedia.org/wiki/Bézier_curve) for a given
+collection of points with `bezier()`:
 
 ``` r
 points <- data.frame(x = c(-1,-2,2,1), y = c(0,1,1,0))
@@ -504,7 +531,11 @@ ggplot(aes(x = x, y = y), data = df) +
 
 ![](tools/README-bezierWeighting-1.png)
 
-To make the evaluation of the Bezier polynomials stable, `as.function()` has a special method for Bezier polynomials that makes use of [de Casteljau's algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm). This allows `bezier()` to be used as a smoother:
+To make the evaluation of the Bezier polynomials stable, `as.function()`
+has a special method for Bezier polynomials that makes use of [de
+Casteljau’s
+algorithm](http://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm).
+This allows `bezier()` to be used as a smoother:
 
 ``` r
 s <- seq(0, 1, length.out = 201) 
@@ -518,7 +549,7 @@ qplot(speed, dist, data = cars) +
 Other stuff
 -----------
 
-I'm starting to put in methods for some other R functions:
+I’m starting to put in methods for some other R functions:
 
 ``` r
 n <- 101
@@ -527,7 +558,7 @@ df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# 1.931 x  -  1.005 x^2  -  2.932
+# 2.061 x  -  0.964 x^2  -  3.098
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
@@ -547,19 +578,19 @@ df <- expand.grid(x = s, y = s) %>%
 # 
 # Coefficients:
 #                           (Intercept)  
-#                            -0.0542186  
+#                             -0.022848  
 # poly(x, y, degree = 2, raw = TRUE)1.0  
-#                            -0.0081241  
+#                             -0.004783  
 # poly(x, y, degree = 2, raw = TRUE)2.0  
-#                             1.0027100  
+#                              0.999084  
 # poly(x, y, degree = 2, raw = TRUE)0.1  
-#                            -0.0005508  
+#                              0.011694  
 # poly(x, y, degree = 2, raw = TRUE)1.1  
-#                             3.0014475  
+#                              2.994753  
 # poly(x, y, degree = 2, raw = TRUE)0.2  
-#                            -1.0028567
+#                             -0.999115
 as.mpoly(mod)
-# -0.008124078 x  +  1.00271 x^2  -  0.0005507512 y  +  3.001448 x y  -  1.002857 y^2  -  0.05421859
+# -0.004783382 x  +  0.9990843 x^2  +  0.01169415 y  +  2.994753 x y  -  0.9991152 y^2  -  0.022848
 ```
 
 Installation
@@ -569,7 +600,14 @@ Installation
 
 -   From Github (dev version):
 
-    ``` r
-    # install.packages("devtools")
-    devtools::install_github("dkahle/mpoly")
-    ```
+``` r
+# install.packages("devtools")
+devtools::install_github("dkahle/mpoly")
+```
+
+Acknowledgements
+----------------
+
+This material is based upon work partially supported by the National
+Science Foundation under Grant
+No. [1622449](https://nsf.gov/awardsearch/showAward?AWD_ID=1622449).

@@ -5,7 +5,7 @@
 \title{Change a multivariate polynomial into a function.}
 \usage{
 \method{as.function}{mpoly}(x, varorder = vars(x), vector
-  = TRUE, ...)
+  = TRUE, silent = FALSE, ...)
 }
 \arguments{
 \item{x}{an object of class mpoly}
@@ -15,6 +15,8 @@ will be provided}
 
 \item{vector}{whether the function should take a vector argument
 (TRUE) or a series of arguments (FALSE)}
+
+\item{silent}{suppress messages}
 
 \item{...}{any additional arguments}
 }
@@ -49,6 +51,9 @@ f(mat)
 p <- mp("1 2 3 4")
 f <- as.function(p)
 f(10) # -> 24
+
+
+
 
 }
 \seealso{

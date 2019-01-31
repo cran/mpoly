@@ -6,7 +6,7 @@
 \title{Change a vector of multivariate polynomials into a function.}
 \usage{
 \method{as.function}{mpolyList}(x, varorder = vars(x), 
-  vector = TRUE, ...)
+  vector = TRUE, silent = FALSE, ...)
 
 \method{as.function}{bezier}(x, ...)
 }
@@ -18,6 +18,8 @@ will be provided (default vars(mpoly))}
 
 \item{vector}{whether the function should take a vector argument 
 (TRUE) or a series of arguments (FALSE)}
+
+\item{silent}{suppress messages}
 
 \item{...}{any additional arguments}
 }
