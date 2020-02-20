@@ -16,12 +16,12 @@ An object of class mpoly or mpolyList.
 This is a wrapper for deriv.mpoly.
 }
 \examples{
-m <- mp('x y + y z + z^2')
+m <- mp("x y + y z + z^2")
 gradient(m)
 
 
 # gradient descent illustration using the symbolically
-# computed gradient of the rosenbrock function
+# computed gradient of the rosenbrock function (shifted)
 rosenbrock <- mp("(1 - x)^2 + 100 (y - x^2)^2")
 fn <- as.function(rosenbrock)
 (rosenbrock_gradient <- gradient(rosenbrock))
@@ -33,7 +33,7 @@ s <- seq(-5, 5, .05)
 df <- expand.grid(x = s, y = s)
 df$z <- apply(df, 1, fn)
 ggplot(df, aes(x = x, y = y)) +
-  geom_raster(aes(fill = z)) +
+  geom_raster(aes(fill = z + 1e-10)) +
   scale_fill_continuous(trans = "log10")
   
 # run the gradient descent algorithm using line-search
@@ -57,7 +57,7 @@ names(steps) <- c("x", "y")
 # visualize steps, note the optim at c(1,1)
 # the routine took 5748 steps
 ggplot(df, aes(x = x, y = y)) +
-  geom_raster(aes(fill = z)) +
+  geom_raster(aes(fill = z + 1e-10)) +
   geom_path(data = steps, color = "red") +
   geom_point(data = steps, color = "red", size = .5) +
   scale_fill_continuous(trans = "log10")
@@ -79,5 +79,5 @@ ggplot(df, aes(x = x, y = y)) +
 
 }
 \seealso{
-\code{\link{deriv.mpoly}}
+\code{\link[=deriv.mpoly]{deriv.mpoly()}}
 }

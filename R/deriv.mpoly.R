@@ -1,32 +1,26 @@
 #' Compute partial derivatives of a multivariate polynomial.
-#' 
+#'
 #' This is a deriv method for mpoly objects.  It does not call the
-#' deriv function (from package stats).
-#' 
+#' [stats::deriv()].
+#'
 #' @param expr an object of class mpoly
 #' @param var character - the partial derivative desired
 #' @param ... any additional arguments
 #' @return An object of class mpoly or mpolyList.
 #' @export
 #' @examples
-#' m <- mp('x y + y z + z^2')
-#' deriv(m, 'x')
-#' deriv(m, 'y')
-#' deriv(m, 'z')
-#' deriv(m, c('x','y','z'))
-#' deriv(m, 'a')
-#' is.mpoly(deriv(m, 'x'))
-#' is.mpolyList( deriv(m, c('x','y','z')) )
+#' m <- mp("x y + y z + z^2")
+#' deriv(m, "x")
+#' deriv(m, "y")
+#' deriv(m, "z")
+#' deriv(m, c("x","y","z"))
+#' deriv(m, "a")
+#' is.mpoly(deriv(m, "x"))
+#' is.mpolyList( deriv(m, c("x","y","z")) )
 deriv.mpoly <- function(expr, var, ...){
 
-  if(missing(var)){
-  	stop('var must be specified, see ?deriv.mpoly', call. = FALSE)
-  }
-	
   # argument checks	
-  if(!is.mpoly(expr)){
-    stop('expr must be of class mpoly.', call. = FALSE)
-  }
+  if (missing(var)) stop("var must be specified, see ?deriv.mpoly", call. = FALSE)
   stopifnot(is.character(var))
   
   
@@ -35,7 +29,7 @@ deriv.mpoly <- function(expr, var, ...){
     mpolyList <- lapply(as.list(var), function(var){
       deriv(expr, var = var, ...)
     })
-    class(mpolyList) <- 'mpolyList'  
+    class(mpolyList) <- "mpolyList"  
     return(mpolyList)    
   }
   
@@ -52,7 +46,7 @@ deriv.mpoly <- function(expr, var, ...){
   	if(length(v) == 1) return(c(coef = 0))
     p <- length(v)
     if(!(var %in% names(v[1:p]))) return(c(coef = 0))
-    v['coef'] <- unname(v[var]) * v['coef']
+    v["coef"] <- unname(v[var]) * v["coef"]
     v[var] <- v[var] - 1
     v
   })
@@ -68,16 +62,16 @@ deriv.mpoly <- function(expr, var, ...){
 #' This is a wrapper for deriv.mpoly.
 #'
 #' @param mpoly an object of class mpoly
-#' @seealso \code{\link{deriv.mpoly}}
+#' @seealso [deriv.mpoly()]
 #' @return An object of class mpoly or mpolyList.
 #' @export
 #' @examples
-#' m <- mp('x y + y z + z^2')
+#' m <- mp("x y + y z + z^2")
 #' gradient(m)
 #' 
 #' 
 #' # gradient descent illustration using the symbolically
-#' # computed gradient of the rosenbrock function
+#' # computed gradient of the rosenbrock function (shifted)
 #' rosenbrock <- mp("(1 - x)^2 + 100 (y - x^2)^2")
 #' fn <- as.function(rosenbrock)
 #' (rosenbrock_gradient <- gradient(rosenbrock))
@@ -89,7 +83,7 @@ deriv.mpoly <- function(expr, var, ...){
 #' df <- expand.grid(x = s, y = s)
 #' df$z <- apply(df, 1, fn)
 #' ggplot(df, aes(x = x, y = y)) +
-#'   geom_raster(aes(fill = z)) +
+#'   geom_raster(aes(fill = z + 1e-10)) +
 #'   scale_fill_continuous(trans = "log10")
 #'   
 #' # run the gradient descent algorithm using line-search
@@ -113,7 +107,7 @@ deriv.mpoly <- function(expr, var, ...){
 #' # visualize steps, note the optim at c(1,1)
 #' # the routine took 5748 steps
 #' ggplot(df, aes(x = x, y = y)) +
-#'   geom_raster(aes(fill = z)) +
+#'   geom_raster(aes(fill = z + 1e-10)) +
 #'   geom_path(data = steps, color = "red") +
 #'   geom_point(data = steps, color = "red", size = .5) +
 #'   scale_fill_continuous(trans = "log10")
@@ -133,8 +127,6 @@ deriv.mpoly <- function(expr, var, ...){
 #'   scale_fill_continuous(trans = "log10") 
 #'   
 #' 
-gradient <- function(mpoly){
-  deriv(mpoly, var = vars(mpoly))
-}
+gradient <- function(mpoly) deriv(mpoly, var = vars(mpoly))
 
 

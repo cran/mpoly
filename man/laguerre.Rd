@@ -34,7 +34,7 @@ laguerre(6)
 laguerre(2)
 laguerre(2, normalized = TRUE)
 
-laguerre(0:5) 
+laguerre(0:5)
 laguerre(0:5, normalized = TRUE)
 laguerre(0:5, indeterminate = "t")
 
@@ -61,10 +61,21 @@ qplot(x, value, data = mdf, geom = "line", color = degree) +
   coord_cartesian(ylim = c(-25, 25))
 
 
+# laguerre polynomials are orthogonal with respect to the exponential kernel:
+L2 <- as.function(laguerre(2))
+L3 <- as.function(laguerre(3))
+L4 <- as.function(laguerre(4))
+
+w <- dexp
+integrate(function(x) L2(x) * L3(x) * w(x), lower = 0, upper = Inf)
+integrate(function(x) L2(x) * L4(x) * w(x), lower = 0, upper = Inf)
+integrate(function(x) L3(x) * L4(x) * w(x), lower = 0, upper = Inf)
+
+
 }
 \seealso{
-\code{\link{glaguerre.polynomials}}, 
-  \url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
+\code{\link[orthopolynom:glaguerre.polynomials]{orthopolynom::glaguerre.polynomials()}},
+\url{http://en.wikipedia.org/wiki/Laguerre_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

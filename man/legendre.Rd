@@ -32,7 +32,7 @@ legendre(6)
 legendre(2)
 legendre(2, normalized = TRUE)
 
-legendre(0:5) 
+legendre(0:5)
 legendre(0:5, normalized = TRUE)
 legendre(0:5, indeterminate = "t")
 
@@ -56,11 +56,46 @@ mdf <- gather(df, degree, value, -x)
 qplot(x, value, data = mdf, geom = "line", color = degree)
 
 
+# legendre polynomials and the QR decomposition
+n <- 201
+x <- seq(-1, 1, length.out = n)
+mat <- cbind(1, x, x^2, x^3, x^4, x^5)
+Q <- qr.Q(qr(mat))
+df <- as.data.frame(cbind(x, Q))
+names(df) <- c("x", 0:5)
+mdf <- gather(df, degree, value, -x)
+qplot(x, value, data = mdf, geom = "line", color = degree)
+
+Q <- apply(Q, 2, function(x) x / x[n])
+df <- as.data.frame(cbind(x, Q))
+names(df) <- c("x", paste0("P_", 0:5))
+mdf <- gather(df, degree, value, -x)
+qplot(x, value, data = mdf, geom = "line", color = degree)
+
+
+# chebyshev polynomials are orthogonal in two ways:
+P2 <- as.function(legendre(2))
+P3 <- as.function(legendre(3))
+P4 <- as.function(legendre(4))
+
+integrate(function(x) P2(x) * P3(x), lower = -1, upper = 1)
+integrate(function(x) P2(x) * P4(x), lower = -1, upper = 1)
+integrate(function(x) P3(x) * P4(x), lower = -1, upper = 1)
+
+n <- 10000L
+u <- runif(n, -1, 1)
+2 * mean(P2(u) * P3(u))
+2 * mean(P2(u) * P4(u))
+2 * mean(P3(u) * P4(u))
+
+(2/n) * sum(P2(u) * P3(u))
+(2/n) * sum(P2(u) * P4(u))
+(2/n) * sum(P3(u) * P4(u))
 
 }
 \seealso{
-\code{\link{legendre.polynomials}}, 
-  \url{http://en.wikipedia.org/wiki/Legendre_polynomials}
+\code{\link[orthopolynom:legendre.polynomials]{orthopolynom::legendre.polynomials()}},
+\url{http://en.wikipedia.org/wiki/Legendre_polynomials}
 }
 \author{
 David Kahle calling code from the orthopolynom package

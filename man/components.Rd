@@ -38,16 +38,12 @@ exponents(x, reduced = FALSE)
 \item{order}{a total order used to order the terms}
 
 \item{reduced}{if TRUE, don't include zero degrees}
-
-\item{...}{additional arguments}
 }
 \value{
-An object of class mpoly or mpolyList, depending on the
-  context
+An object of class mpoly or mpolyList, depending on the context
 }
 \description{
-Compute quantities/expressions related to a multivariate 
-polynomial.
+Compute quantities/expressions related to a multivariate polynomial.
 }
 \examples{
 (p <- mp("x y^2 + x (x+1) (x+2) x z + 3 x^10"))

@@ -7,6 +7,12 @@ mpoly
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/mpoly)](https://cran.r-project.org/package=mpoly)
+[![Travis build
+status](https://travis-ci.org/dkahle/mpoly.svg?branch=master)](https://travis-ci.org/dkahle/mpoly)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/dkahle/mpoly?branch=master&svg=true)](https://ci.appveyor.com/project/dkahle/mpoly)
+[![Coverage
+status](https://codecov.io/gh/dkahle/mpoly/branch/master/graph/badge.svg)](https://codecov.io/github/dkahle/mpoly?branch=master)
 <!-- badges: end -->
 
 Specifying polynomials
@@ -17,9 +23,15 @@ polynomials *symbolically* and functionally in R. Polynomials are
 defined with the `mp()` function:
 
 ``` r
-library(mpoly)
+library("mpoly")
+# Registered S3 methods overwritten by 'ggplot2':
+#   method         from 
+#   [.quosures     rlang
+#   c.quosures     rlang
+#   print.quosures rlang
 mp("x + y")
 # x  +  y
+
 mp("(x + 4 y)^2 (x - .25)")
 # x^3  -  0.25 x^2  +  8 x^2 y  -  2 x y  +  16 x y^2  -  4 y^2
 ```
@@ -31,8 +43,10 @@ are available with the reorder function:
 ``` r
 (p <- mp("(x + y)^2 (1 + x)"))
 # x^3  +  x^2  +  2 x^2 y  +  2 x y  +  x y^2  +  y^2
+
 reorder(p, varorder = c("y","x"), order = "lex")
 # y^2 x  +  y^2  +  2 y x^2  +  2 y x  +  x^3  +  x^2
+
 reorder(p, varorder = c("x","y"), order = "glex")
 # x^3  +  2 x^2 y  +  x y^2  +  x^2  +  2 x y  +  y^2
 ```
@@ -54,8 +68,10 @@ which works on its terms:
 ``` r
 p[1]
 # x^3
+
 p[1:3]
 # x^3  +  x^2  +  2 x^2 y
+
 p[-1]
 # x^2  +  2 x^2 y  +  2 x y  +  x y^2  +  y^2
 ```
@@ -66,8 +82,10 @@ polynomials, for example the leading term (default lex order):
 ``` r
 LT(p)
 # x^3
+
 LC(p)
 # [1] 1
+
 LM(p)
 # x^3
 ```
@@ -99,11 +117,14 @@ exponents(p)
 # [[6]]
 # x y 
 # 0 2
+
 multideg(p)
 # x y 
 # 3 0
+
 totaldeg(p)
 # [1] 3
+
 monomials(p)
 # x^3
 # x^2
@@ -120,14 +141,18 @@ Arithmetic is defined for both polynomials (`+`, `-`, `*` and `^`)…
 
 ``` r
 p1 <- mp("x + y")
+
 p2 <- mp("x - y")
 
 p1 + p2
 # 2 x
+
 p1 - p2
 # 2 y
+
 p1 * p2
 # x^2  -  y^2
+
 p1^2
 # x^2  +  2 x y  +  y^2
 ```
@@ -138,16 +163,20 @@ p1^2
 (ps1 <- mp(c("x", "y")))
 # x
 # y
+
 (ps2 <- mp(c("2 x", "y + z")))
 # 2 x
 # y  +  z
+
 ps1 + ps2
 # 3 x
 # 2 y  +  z
+
 ps1 - ps2
 # -1 x
 # -1 z
-ps1 * ps2
+
+ps1 * ps2 
 # 2 x^2
 # y^2  +  y z
 ```
@@ -159,8 +188,10 @@ You can compute derivatives easily:
 
 ``` r
 p <- mp("x + x y + x y^2")
+
 deriv(p, "y")
 # x  +  2 x y
+
 gradient(p)
 # y^2  +  y  +  1
 # 2 y x  +  x
@@ -176,10 +207,13 @@ multivariate polynomial:
 ``` r
 f <- as.function(mp("x + 2 y")) # makes a function with a vector argument
 # f(.) with . = (x, y)
+
 f(c(1,1))
 # [1] 3
+
 f <- as.function(mp("x + 2 y"), vector = FALSE) # makes a function with all arguments
 # f(x, y)
+
 f(1, 1)
 # [1] 3
 ```
@@ -190,12 +224,16 @@ Here’s a basic example with a vector of multivariate polynomials:
 (p <- mp(c("x", "2 y")))
 # x
 # 2 y
+
 f <- as.function(p) 
 # f(.) with . = (x, y)
+
 f(c(1,1))
 # [1] 1 2
+
 f <- as.function(p, vector = FALSE) 
 # f(x, y)
+
 f(1, 1)
 # [1] 1 2
 ```
@@ -208,12 +246,15 @@ univariate polynomial.
 ``` r
 f <- as.function(mp("x^2"))
 # f(.) with . = x
+
 f(1:3)
 # [1] 1 4 9
+
 (mat <- matrix(1:4, 2))
 #      [,1] [,2]
 # [1,]    1    3
 # [2,]    2    4
+
 f(mat) # it's vectorized properly over arrays
 #      [,1] [,2]
 # [1,]    1    9
@@ -226,9 +267,11 @@ Here’s an example with a vector of univariate polynomials:
 (p <- mp(c("t", "t^2")))
 # t
 # t^2
+
 f <- as.function(p)
 f(1)
 # [1] 1 1
+
 f(1:3)
 #      [,1] [,2]
 # [1,]    1    1
@@ -239,20 +282,18 @@ f(1:3)
 You can use this to visualize a univariate polynomials like this:
 
 ``` r
+library("tidyverse"); theme_set(theme_classic())
+```
+
+``` r
 f <- as.function(mp("(x-2) x (x+2)"))
 # f(.) with . = x
 x <- seq(-2.5, 2.5, .1)
 
-library(ggplot2); theme_set(theme_classic())
-# 
-# Attaching package: 'ggplot2'
-# The following object is masked from 'package:mpoly':
-# 
-#     vars
 qplot(x, f(x), geom = "line")
 ```
 
-![](tools/README-asFunction-1.png)
+![](tools/README-as-function-1.png)
 
 For multivariate polynomials, it’s a little more complicated:
 
@@ -262,16 +303,33 @@ f <- as.function(mp("x^2 - y^2"))
 s <- seq(-2.5, 2.5, .1)
 df <- expand.grid(x = s, y = s)
 df$f <- apply(df, 1, f)
-qplot(x, y, data = df, geom = "tile", fill = f)
+qplot(x, y, data = df, geom = "raster", fill = f)
 ```
 
-![](tools/README-asFuntionMulti-1.png)
+![](tools/README-as-function-multi-1.png)
+
+Using [tidyverse-style coding](https://www.tidyverse.org) (install
+tidyverse packages with `install.packages("tidyverse")`), this looks a
+bit cleaner:
+
+``` r
+f <- as.function(mp("x^2 - y^2"), vector = FALSE)
+# f(x, y)
+seq(-2.5, 2.5, .1) %>% 
+  list("x" = ., "y" = .) %>% 
+  cross_df() %>% 
+  mutate(f = f(x, y)) %>% 
+  ggplot(aes(x, y, fill = f)) + 
+    geom_raster()
+```
+
+![](tools/README-as-function-multi-tidy-1.png)
 
 Algebraic geometry
 ------------------
 
-**Grobner bases are no longer implemented, see
-[m2r](https://github.com/musicman3320/m2r)**
+**Grobner bases are no longer implemented in mpoly; they’re now in
+[m2r](https://github.com/musicman3320/m2r).**
 
 ``` r
 # polys <- mp(c("t^4 - x", "t^3 - y", "t^2 - z"))
@@ -283,10 +341,13 @@ Homogenization and dehomogenization:
 ``` r
 (p <- mp("x + 2 x y + y - z^3"))
 # x  +  2 x y  +  y  -  z^3
+
 (hp <- homogenize(p))
 # x t^2  +  2 x y t  +  y t^2  -  z^3
+
 dehomogenize(hp, "t")
 # x  +  2 x y  +  y  -  z^3
+
 homogeneous_components(p)
 # x  +  y
 # 2 x y
@@ -315,8 +376,10 @@ chebyshev(1)
 # 
 #     LCM
 # x
+
 chebyshev(2)
 # -1  +  2 x^2
+
 chebyshev(0:5)
 # 1
 # x
@@ -329,10 +392,6 @@ chebyshev(0:5)
 And you can visualize them:
 
 ``` r
-library(tidyr); library(dplyr)
-```
-
-``` r
 s <- seq(-1, 1, length.out = 201); N <- 5
 (chebPolys <- chebyshev(0:N))
 # 1
@@ -342,8 +401,7 @@ s <- seq(-1, 1, length.out = 201); N <- 5
 # 8 x^4  -  8 x^2  +  1
 # 16 x^5  -  20 x^3  +  5 x
 
-
-df <- as.function(chebPolys)(s) %>% cbind(s, .) %>% as.data.frame
+df <- as.function(chebPolys)(s) %>% cbind(s, .) %>% as.data.frame()
 names(df) <- c("x", paste0("T_", 0:N))
 mdf <- df %>% gather(degree, value, -x)
 qplot(x, value, data = mdf, geom = "path", color = degree)
@@ -466,12 +524,12 @@ qplot(x, value, data = mdf, geom = "path", color = degree)
 
 ![](tools/README-bernstein-1.png)
 
-You can use the `bernsteinApprox()` function to compute the Bernstein
+You can use the `bernstein_approx()` function to compute the Bernstein
 polynomial approximation to a function. Here’s an approximation to the
 standard normal density:
 
 ``` r
-p <- bernsteinApprox(dnorm, 15, -1.25, 1.25)
+p <- bernstein_approx(dnorm, 15, -1.25, 1.25)
 round(p, 4)
 # -0.1624 x^2  +  0.0262 x^4  -  0.002 x^6  +  0.0001 x^8  +  0.3796
 
@@ -485,7 +543,7 @@ df <- data.frame(
 qplot(x, y, data = df, geom = "path", color = which)
 ```
 
-![](tools/README-bernsteinApprox-1.png)
+![](tools/README-bernstein-approx-1.png)
 
 [Bezier polynomials and curves](http://en.wikipedia.org/wiki/Bézier_curve)
 --------------------------------------------------------------------------
@@ -512,7 +570,7 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_path(size = 2)
 ```
 
-![](tools/README-bezierPlot-1.png)
+![](tools/README-bezier-plot-1.png)
 
 Weighting is available also:
 
@@ -529,7 +587,7 @@ ggplot(aes(x = x, y = y), data = df) +
   geom_path(size = 2)
 ```
 
-![](tools/README-bezierWeighting-1.png)
+![](tools/README-bezier-weighting-1.png)
 
 To make the evaluation of the Bezier polynomials stable, `as.function()`
 has a special method for Bezier polynomials that makes use of [de
@@ -544,7 +602,7 @@ qplot(speed, dist, data = cars) +
   geom_path(data = df, color = "red")
 ```
 
-![](tools/README-bezierSmooth-1.png)
+![](tools/README-bezier-smooth-1.png)
 
 Other stuff
 -----------
@@ -552,13 +610,14 @@ Other stuff
 I’m starting to put in methods for some other R functions:
 
 ``` r
+set.seed(1)
 n <- 101
 df <- data.frame(x = seq(-5, 5, length.out = n))
 df$y <- with(df, -x^2 + 2*x - 3 + rnorm(n, 0, 2))
 
 mod <- lm(y ~ x + I(x^2), data = df)
 (p <- mod %>% as.mpoly %>% round)
-# 2.061 x  -  0.964 x^2  -  3.098
+# 1.983 x  -  1.01 x^2  -  2.709
 qplot(x, y, data = df) +
   stat_function(fun = as.function(p), colour = 'red')
 # f(.) with . = x
@@ -578,19 +637,19 @@ df <- expand.grid(x = s, y = s) %>%
 # 
 # Coefficients:
 #                           (Intercept)  
-#                             -0.022848  
+#                             -0.070512  
 # poly(x, y, degree = 2, raw = TRUE)1.0  
-#                             -0.004783  
+#                             -0.004841  
 # poly(x, y, degree = 2, raw = TRUE)2.0  
-#                              0.999084  
+#                              1.005307  
 # poly(x, y, degree = 2, raw = TRUE)0.1  
-#                              0.011694  
+#                              0.001334  
 # poly(x, y, degree = 2, raw = TRUE)1.1  
-#                              2.994753  
+#                              3.003755  
 # poly(x, y, degree = 2, raw = TRUE)0.2  
-#                             -0.999115
+#                             -0.999536
 as.mpoly(mod)
-# -0.004783382 x  +  0.9990843 x^2  +  0.01169415 y  +  2.994753 x y  -  0.9991152 y^2  -  0.022848
+# -0.004840798 x  +  1.005307 x^2  +  0.001334122 y  +  3.003755 x y  -  0.9995356 y^2  -  0.07051218
 ```
 
 Installation
