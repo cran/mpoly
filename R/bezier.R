@@ -240,8 +240,8 @@ bezier <- function(..., indeterminate = "t"){
 #' @param ... ...; used internally
 #' @return function of a single parameter
 #' @author David Kahle
-#' @references \url{http://en.wikipedia.org/wiki/Bezier_curve},
-#'   \url{http://en.wikipedia.org/wiki/De_Casteljau's_algorithm}
+#' @references \url{https://en.wikipedia.org/wiki/Bezier_curve},
+#'   \url{https://en.wikipedia.org/wiki/De_Casteljau's_algorithm}
 #' @seealso [bezier()]
 #' @name bezier_function
 #' @examples
@@ -330,9 +330,8 @@ bezierFunction <- function(...) {
 
 
 
-
-#' @export 
-#' @rdname as.function.mpolyList
+#' @rdname as-function
+#' @exportS3Method base::as.function
 as.function.bezier <- function(x, ...) bezier_function(attr(x, "bezier")$points, ...)
 
 

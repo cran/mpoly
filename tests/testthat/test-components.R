@@ -111,4 +111,92 @@ test_that("exponents works", {
 
 
 
+test_that("coef works", {
+  
+  expect_equal(
+    coef(mp("x y^2 + 3 y^3 x^2 + 5")), 
+    c("x y^2" = 1, "x^2 y^3" = 3, "1" = 5)
+  )
+  
+  expect_equal(
+    coef(mp("x y^2 + 3 y^3 x^2 + 5"), stars = TRUE), 
+    c("x * y**2" = 1, "x**2 * y**3" = 3, "1" = 5)
+  )
+  
+  
+})
+
+
+
+
+context("normalize_coefficients()")
+
+test_that("normalize_coefficients works", {
+  
+  p <- mp("(x + y)^2")
+  
+  expect_equal(
+    normalize_coefficients(p),
+    structure(
+      list(
+        c(x = 2, coef = 0.408248290463863), 
+        c(x = 1, y = 1, coef = 0.816496580927726), 
+        c(y = 2, coef = 0.408248290463863)
+      ), 
+      class = "mpoly"
+    )
+  )
+  
+  abs_norm <- function(x) sum(abs(x))
+  expect_equal(
+    normalize_coefficients(p, norm = abs_norm),
+    structure(
+      list(
+        c(x = 2, coef = 0.25), 
+        c(x = 1, y = 1, coef = 0.5), 
+        c(y = 2, coef = 0.25)
+      ), 
+      class = "mpoly"
+    )
+  )
+  
+  expect_equal(
+    sum(coef(normalize_coefficients(p))^2),
+    1
+  )
+  
+  expect_equal(
+    normalize_coefficients(mp(c("x", "5 y"))),
+    mp(c("x", "y"))
+  )
+  
+  expect_equal(
+    normalize_coefficients(mp("0")),
+    structure(c(coef = 0), class = "mpoly")
+  )
+  
+  
+  
+  
+})
+
+
+
+
+
+context("coef_lift()")
+
+test_that("coef_lift() works", {
+  
+  expect_equal(
+    coef_lift( mp("x + y") ), 
+    mp("bx x + by y")
+  )
+  
+  expect_equal(
+    coef_lift( mp("2 x - y") ), 
+    mp("bx x + by y")
+  )
+  
+})
 

@@ -19,15 +19,17 @@ Determine all r-vectors with nonnegative integer entries summing to n.  Note
 that this is not intended to be optimized.
 }
 \examples{
-burst(4)
+burst(3)
 
-burst(4, 4)
-burst(4, 3)
-burst(4, 2)
+burst(3, 1)
+burst(3, 2)
+burst(3, 3)
+burst(3, 4)
 
 rowSums(burst(4))
-rowSums(burst(4, 3))
-rowSums(burst(4, 2))
+rowSums( burst(3, 2) )
+rowSums( burst(3, 3) )
+rowSums( burst(3, 4) )
 
 
 burst(10, 4) # all possible 2x2 contingency tables with n=10

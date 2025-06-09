@@ -10,6 +10,9 @@
 \alias{totaldeg}
 \alias{monomials}
 \alias{exponents}
+\alias{coef.mpoly}
+\alias{normalize_coefficients}
+\alias{coef_lift}
 \title{Polynomial components}
 \usage{
 \method{[}{mpoly}(x, ndx)
@@ -24,9 +27,15 @@ multideg(x, varorder = vars(x), order = "lex")
 
 totaldeg(x)
 
-monomials(x)
+monomials(x, unit = FALSE)
 
 exponents(x, reduced = FALSE)
+
+\method{coef}{mpoly}(object, ...)
+
+normalize_coefficients(p, norm = function(x) sqrt(sum(x^2)))
+
+coef_lift(p)
 }
 \arguments{
 \item{x}{an object of class mpoly}
@@ -37,7 +46,19 @@ exponents(x, reduced = FALSE)
 
 \item{order}{a total order used to order the terms}
 
+\item{unit}{for \code{\link[=monomials]{monomials()}}, should the monomials have coefficient 1?}
+
 \item{reduced}{if TRUE, don't include zero degrees}
+
+\item{object}{mpoly object to pass to \code{\link[=coef]{coef()}}}
+
+\item{...}{In \code{\link[=coef]{coef()}}, additional arguments passed to \code{\link[=print.mpoly]{print.mpoly()}} for
+the names of the resulting vector}
+
+\item{p}{an object of class mpoly or mpolyList}
+
+\item{norm}{a norm (function) to normalize the coefficients of a polynomial,
+defaults to the Euclidean norm}
 }
 \value{
 An object of class mpoly or mpolyList, depending on the context
@@ -58,11 +79,31 @@ LM(p)
 multideg(p)
 totaldeg(p)
 monomials(p)
+monomials(p, unit = TRUE)
+coef(p)
+
+p[1:2]
+coef_lift(p[1:2])
 
 exponents(p)
 exponents(p, reduce = TRUE)
 lapply(exponents(p), is.integer)
 
 homogeneous_components(p)
+
+(p <- mp("(x + y)^2"))
+normalize_coefficients(p)
+norm <- function(v) sqrt(sum(v^2))
+norm(coef( normalize_coefficients(p) ))
+
+abs_norm <- function(x) sum(abs(x))
+normalize_coefficients(p, norm = abs_norm)
+
+p <- mp(c("x", "2 y"))
+normalize_coefficients(p)
+
+# normalize_coefficients on the zero polynomial returns the zero polynomial
+normalize_coefficients(mp("0"))
+
 
 }
